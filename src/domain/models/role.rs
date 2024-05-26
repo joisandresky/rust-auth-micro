@@ -1,0 +1,39 @@
+use chrono::{Local, NaiveDateTime};
+use serde::Serialize;
+use uuid::Uuid;
+
+
+#[derive(Debug, Serialize)]
+pub struct Role {
+    pub id: String,
+    pub name: String,
+    pub description: Option<String>,
+    pub created_at: NaiveDateTime,
+    pub updated_at: NaiveDateTime,
+    pub deleted_at: Option<NaiveDateTime>
+}
+
+impl Role {
+    pub fn new(
+        name: String,
+        description: Option<String>,
+    ) -> Self {
+        let id = Uuid::new_v4().to_string();
+        let now = Local::now().naive_local();
+
+        Self {
+            id,
+            name,
+            description,
+            created_at: now,
+            updated_at: now,
+            deleted_at: None,
+        }
+    }
+
+    pub fn merge(&mut self, other: &Self) {
+        self.name = other.name.clone();
+        self.description = other.description.clone();
+        self.updated_at = Local::now().naive_local();
+    }
+}
