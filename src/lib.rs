@@ -47,7 +47,7 @@ pub async fn start_service() {
     // Run Server
     let addr = format!("0.0.0.0:{}", app_cfg.app_port);
     let listener = tokio::net::TcpListener::bind(&addr).await.unwrap();
-    debug!("🚀 {} Started on port {}", app_cfg.app_name, app_cfg.app_port);
+    debug!("🚀 {} Started on {}", app_cfg.app_name, addr);
 
     axum::serve(listener, app.into_make_service()).await.unwrap();
 }

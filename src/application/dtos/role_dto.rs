@@ -5,8 +5,8 @@ use crate::domain::models::role::Role;
 
 #[derive(Debug, Deserialize)]
 pub struct CreateOrUpdateRoleReq {
-    name: String,
-    description: Option<String>,
+    pub name: String,
+    pub description: Option<String>,
 }
 
 impl From<&CreateOrUpdateRoleReq> for Role {

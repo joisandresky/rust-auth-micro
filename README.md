@@ -3,5 +3,6 @@ An Example of Rust Microservices for Authentication using JWT/PASETO (haven't de
 
 # TODO
 - [x] Role CRUD
-- [ ] User Registration & Attaching Role to User
+- [x] User Registration & Attaching Role to User
 - [ ] JWT/PASETO Authentication
+- [ ] Redis for Token Store

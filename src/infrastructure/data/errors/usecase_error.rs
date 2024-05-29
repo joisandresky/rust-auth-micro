@@ -1,4 +1,5 @@
 use core::fmt;
+use bcrypt::BcryptError;
 use serde::Serialize;
 use serde_json::json;
 use sqlx::Error as SqlxError;
@@ -60,6 +61,12 @@ impl IntoResponse for UsecaseError {
         });
 
         (status_code, Json(body)).into_response()
+    }
+}
+
+impl From<BcryptError> for UsecaseError {
+    fn from(value: BcryptError) -> Self {
+        UsecaseError::new(value.to_string(), 500, None)
     }
 }
 

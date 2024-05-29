@@ -15,6 +15,14 @@ impl RoleRepository {
             db_pool
         }
     }
+
+    pub async fn get_by_name(&self, name: String) -> Result<Role, sqlx::Error> {
+        let role = sqlx::query_as!(Role, "SELECT * FROM roles WHERE name = $1 AND deleted_at IS NULL", name)
+            .fetch_one(&self.db_pool)
+            .await?;
+
+        Ok(role)
+    }
 }
 
 #[async_trait::async_trait]
