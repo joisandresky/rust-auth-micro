@@ -3,7 +3,7 @@ use std::sync::Arc;
 use axum::{extract::{Path, State}, http::StatusCode, routing::get, Json, Router};
 use serde_json::{json, Value};
 
-use crate::{application::dtos::role_dto::CreateOrUpdateRoleReq, infrastructure::data::{context::app_ctx::AppCtx, errors::usecase_error::UsecaseError}};
+use crate::{application::dtos::role_dto::CreateOrUpdateRoleReq, infrastructure::{data::context::app_ctx::AppCtx, errors::usecase_error::UsecaseError}};
 
 pub fn role_routes() -> Router<Arc<AppCtx>> {
     Router::new()

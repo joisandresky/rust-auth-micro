@@ -1,6 +1,6 @@
 use std::sync::Arc;
 
-use crate::{application::dtos::role_dto::CreateOrUpdateRoleReq, domain::models::role::Role, infrastructure::data::{errors::usecase_error::UsecaseError, repositories::{repository::Repository, role_repository::RoleRepository}}};
+use crate::{application::dtos::role_dto::CreateOrUpdateRoleReq, domain::models::role::Role, infrastructure::{data::repositories::{repository::Repository, role_repository::RoleRepository}, errors::usecase_error::UsecaseError}};
 
 pub struct RoleUsecase {
     role_repo: Arc<RoleRepository>,

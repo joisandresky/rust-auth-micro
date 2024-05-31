@@ -3,7 +3,7 @@ use std::sync::Arc;
 use bcrypt::{hash, DEFAULT_COST};
 use sqlx::PgPool;
 
-use crate::{application::dtos::user_dto::CreateUserReq, domain::models::{user::User, user_role::UserRole}, infrastructure::data::{errors::usecase_error::UsecaseError, repositories::{role_repository::RoleRepository, user_repository::UserRepository, user_role_repository::UserRoleRepository}}};
+use crate::{application::dtos::user_dto::CreateUserReq, domain::models::{user::User, user_role::UserRole}, infrastructure::{data::repositories::{role_repository::RoleRepository, user_repository::UserRepository, user_role_repository::UserRoleRepository}, errors::usecase_error::UsecaseError}};
 
 pub struct AuthUsecase {
     user_repo: Arc<UserRepository>,

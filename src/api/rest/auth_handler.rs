@@ -3,7 +3,7 @@ use std::sync::Arc;
 use axum::{extract::State, http::StatusCode, routing::post, Json, Router};
 use serde_json::{json, Value};
 
-use crate::{application::dtos::user_dto::CreateUserReq, infrastructure::data::{context::app_ctx::AppCtx, errors::usecase_error::UsecaseError}};
+use crate::{application::dtos::user_dto::CreateUserReq, infrastructure::{data::context::app_ctx::AppCtx, errors::usecase_error::UsecaseError}};
 
 pub fn auth_routes() -> Router<Arc<AppCtx>> {
     Router::new()
