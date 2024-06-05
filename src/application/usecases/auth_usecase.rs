@@ -2,6 +2,7 @@ use std::sync::Arc;
 
 use bcrypt::{hash, DEFAULT_COST};
 use sqlx::PgPool;
+use validator::Validate;
 
 use crate::{application::dtos::user_dto::CreateUserReq, domain::models::{user::User, user_role::UserRole}, infrastructure::{data::repositories::{role_repository::RoleRepository, user_repository::UserRepository, user_role_repository::UserRoleRepository}, errors::usecase_error::UsecaseError}};
 
@@ -21,6 +22,10 @@ impl AuthUsecase {
     }
 
     pub async fn register(&self, db_pool: &PgPool, req: CreateUserReq) -> Result<User, UsecaseError> {
+        let _valid = req.validate().map_err(|err| {
+            UsecaseError::new(err.to_string(), 400, None)
+        })?;
+
         let mut tx = db_pool.begin().await?;
 
         let role = self

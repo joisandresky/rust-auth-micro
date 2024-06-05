@@ -1,10 +1,14 @@
 use serde::Deserialize;
+use validator::Validate;
 
 use crate::domain::models::user::User;
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Validate)]
 pub struct CreateUserReq {
+    #[validate(email(message = "please provide valid email"))]
     pub email: String,
+
+    #[validate(length(min = 6, message = "password must be at least 6 characters"))]
     pub password: String,
 }
 

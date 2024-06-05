@@ -1,5 +1,7 @@
 use std::sync::Arc;
 
+use validator::Validate;
+
 use crate::{application::dtos::role_dto::CreateOrUpdateRoleReq, domain::models::role::Role, infrastructure::{data::repositories::{repository::Repository, role_repository::RoleRepository}, errors::usecase_error::UsecaseError}};
 
 pub struct RoleUsecase {
@@ -26,15 +28,23 @@ impl RoleUsecase {
     }
 
     pub async fn create(&self, req: CreateOrUpdateRoleReq) -> Result<Role, UsecaseError> {
+        let _valid = req.validate().map_err(|err| {
+            UsecaseError::new(err.to_string(), 400, None)
+        })?;
+
         let role = self.role_repo.create(Role::from(&req)).await?;
 
         Ok(role)
     }
 
     pub async fn update_by_id(&self, id: String, req: CreateOrUpdateRoleReq) -> Result<Role, UsecaseError> {
+        let _valid = req.validate().map_err(|err| {
+            UsecaseError::new(err.to_string(), 400, None)
+        })?;
+        
         let mut role = self.role_repo.get_by_id(id).await?;
 
-        role.merge(&Role::from(&req));
+        role.update(&Role::from(&req));
 
         let updated_role = self.role_repo.update(role).await?;
 

@@ -31,7 +31,7 @@ impl Role {
         }
     }
 
-    pub fn merge(&mut self, other: &Self) {
+    pub fn update(&mut self, other: &Self) {
         self.name = other.name.clone();
         self.description = other.description.clone();
         self.updated_at = Local::now().naive_local();

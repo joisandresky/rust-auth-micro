@@ -1,10 +1,12 @@
 use serde::Deserialize;
+use validator::Validate;
 
 use crate::domain::models::role::Role;
 
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Validate)]
 pub struct CreateOrUpdateRoleReq {
+    #[validate(length(min = 3, message = "name must be at least 3 characters"))]
     pub name: String,
     pub description: Option<String>,
 }
