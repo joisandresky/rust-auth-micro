@@ -23,7 +23,7 @@ impl AuthUsecase {
 
     pub async fn register(&self, db_pool: &PgPool, req: CreateUserReq) -> Result<User, UsecaseError> {
         let _valid = req.validate().map_err(|err| {
-            UsecaseError::new(err.to_string(), 400, None)
+            UsecaseError::from(err)
         })?;
 
         let mut tx = db_pool.begin().await?;

@@ -29,7 +29,7 @@ impl RoleUsecase {
 
     pub async fn create(&self, req: CreateOrUpdateRoleReq) -> Result<Role, UsecaseError> {
         let _valid = req.validate().map_err(|err| {
-            UsecaseError::new(err.to_string(), 400, None)
+            UsecaseError::from(err)
         })?;
 
         let role = self.role_repo.create(Role::from(&req)).await?;
@@ -39,7 +39,7 @@ impl RoleUsecase {
 
     pub async fn update_by_id(&self, id: String, req: CreateOrUpdateRoleReq) -> Result<Role, UsecaseError> {
         let _valid = req.validate().map_err(|err| {
-            UsecaseError::new(err.to_string(), 400, None)
+            UsecaseError::from(err)
         })?;
         
         let mut role = self.role_repo.get_by_id(id).await?;
