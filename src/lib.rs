@@ -37,7 +37,7 @@ pub async fn start_service() {
 
     // connect to redis
     let redis_client = redis::Client::open(app_cfg.redis_url.clone()).unwrap();
-    let redis_multiplexed_conn = redis_client.get_multiplexed_async_connection().await.unwrap();
+    let redis_multiplexed_conn = redis_client.get_multiplexed_tokio_connection().await.unwrap();
     info!("Successfully connected to redis");
 
     // setup cors
