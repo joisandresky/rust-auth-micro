@@ -35,6 +35,11 @@ pub async fn start_service() {
     let db_pool = get_db_pool(&app_cfg.database_url).await;
     info!("Successfully connected to database");
 
+    // connect to redis
+    let redis_client = redis::Client::open(app_cfg.redis_url.clone()).unwrap();
+    let redis_multiplexed_conn = redis_client.get_multiplexed_async_connection().await.unwrap();
+    info!("Successfully connected to redis");
+
     // setup cors
     let cors = CorsLayer::new()
         .allow_origin("http://localhost:3000".parse::<HeaderValue>().unwrap())
@@ -43,7 +48,7 @@ pub async fn start_service() {
         .allow_headers([AUTHORIZATION, ACCEPT, CONTENT_TYPE]);
 
     // setup app context/state
-    let app_ctx = Arc::new(AppCtx::new(app_cfg.clone(), db_pool));
+    let app_ctx = Arc::new(AppCtx::new(app_cfg.clone(), db_pool, redis_multiplexed_conn));
 
     // setup router
     let app = create_router().layer(cors).with_state(app_ctx);

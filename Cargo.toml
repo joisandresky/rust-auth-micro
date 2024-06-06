@@ -21,3 +21,6 @@ tracing = "0.1.40"
 tracing-subscriber = { version = "0.3.18", features = ["env-filter"] }
 uuid = { version = "1.8.0", features = ["v4", "fast-rng"] }
 validator = { version = "0.18.1", features = ["derive"] }
+redis = { version = "0.25.3", features = ["tokio-comp"] }
+rusty_paseto = "0.7.1"
+time = "0.3.36"

@@ -1,7 +1,7 @@
 use chrono::Local;
 use sqlx::{PgPool, Postgres, Transaction};
 
-use crate::domain::models::user::User;
+use crate::domain::models::{role::Role, user::User, user_role::UserWithRoles};
 
 use super::repository::Repository;
 
@@ -23,6 +23,63 @@ impl UserRepository {
            .await?;
 
         Ok(user.is_some())
+    }
+
+    pub async fn get_by_email(&self, email: String) -> Result<User, sqlx::Error> {
+        let user = sqlx::query_as!(User, "SELECT * FROM users WHERE email = $1 AND deleted_at IS NULL", email)
+           .fetch_one(&self.db_pool)
+           .await?;
+
+        Ok(user)
+    }
+
+    pub async fn get_user_by_email_with_roles(&self, email: String) -> Result<UserWithRoles, sqlx::Error> {
+        let rows = sqlx::query!(
+            r#"
+            SELECT 
+                u.id as user_id, u.email, u.password, u.email_verified_at, u.last_login, u.is_active, u.created_at as user_created_at, u.updated_at as user_updated_at, u.deleted_at as user_deleted_at,
+                r.id as role_id, r.name, r.description, r.created_at as role_created_at, r.updated_at as role_updated_at, r.deleted_at as role_deleted_at
+            FROM users u
+            JOIN user_roles ur ON u.id = ur.user_id
+            JOIN roles r ON ur.role_id = r.id
+            WHERE u.email = $1
+            "#,
+            email
+        )
+        .fetch_all(&self.db_pool)
+        .await?;
+
+        if rows.is_empty() {
+            return Err(sqlx::Error::RowNotFound)
+        }
+
+        let user_row = &rows[0];
+        let user = User {
+            id: user_row.user_id.clone(),
+            email: user_row.email.clone(),
+            password: user_row.password.clone(),
+            email_verified_at: user_row.email_verified_at,
+            last_login: user_row.last_login,
+            is_active: user_row.is_active,
+            created_at: user_row.user_created_at,
+            updated_at: user_row.user_updated_at,
+            deleted_at: user_row.user_deleted_at,
+        };
+
+        let roles = rows
+            .into_iter()
+            .map(|row| Role {
+                id: row.role_id,
+                name: row.name,
+                description: row.description,
+                created_at: row.role_created_at,
+                updated_at: row.role_updated_at,
+                deleted_at: row.role_deleted_at,
+            })
+            .collect();
+
+        Ok(UserWithRoles { user: user, roles: roles })
+
     }
 
     pub async fn tx_create(&self, tx: &mut Transaction<'_, Postgres>, entity: User) -> Result<User, sqlx::Error> {

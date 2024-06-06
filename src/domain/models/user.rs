@@ -6,6 +6,7 @@ use uuid::Uuid;
 pub struct User {
     pub id: String,
     pub email: String,
+    #[serde(skip_serializing)]
     pub password: String,
     pub email_verified_at: Option<NaiveDateTime>,
     pub last_login: Option<NaiveDateTime>,

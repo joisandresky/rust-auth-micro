@@ -17,4 +17,7 @@ pub struct AppConfig {
 
     #[envconfig(from = "SECRET_KEY")]
     pub secret_key: String,
+
+    #[envconfig(from = "REDIS_URL")]
+    pub redis_url: String,
 }

@@ -1,5 +1,6 @@
 use core::fmt;
 use bcrypt::BcryptError;
+use redis::RedisError;
 use serde::Serialize;
 use serde_json::json;
 use sqlx::Error as SqlxError;
@@ -46,6 +47,16 @@ impl From<SqlxError> for UsecaseError {
                     code: StatusCode::INTERNAL_SERVER_ERROR.as_u16(),
                 }
             }
+        }
+    }
+}
+
+impl From<RedisError> for UsecaseError {
+    fn from(err: RedisError) -> Self {
+        UsecaseError {
+            message: err.to_string(),
+            error: None,
+            code: StatusCode::INTERNAL_SERVER_ERROR.as_u16(),
         }
     }
 }

@@ -1,9 +1,9 @@
 use chrono::{Local, NaiveDateTime};
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
 
-#[derive(Debug, Serialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct Role {
     pub id: String,
     pub name: String,

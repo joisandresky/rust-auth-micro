@@ -2,6 +2,8 @@ use chrono::{Local, NaiveDateTime};
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
+use super::{role::Role, user::User};
+
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct UserRole {
@@ -29,4 +31,11 @@ impl UserRole {
         }
 
     }
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct UserWithRoles {
+    #[serde(flatten)]
+    pub user: User,
+    pub roles: Vec<Role>,
 }
