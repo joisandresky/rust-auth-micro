@@ -10,3 +10,4 @@ An Example of Rust Microservices for Authentication using ~~JWT~~/PASETO (haven'
 - [x] Auth Middleware
 - [x] Get User Info
 - [x] Logout & clear redis key
+- [ ] gRPC API
