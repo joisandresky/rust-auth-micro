@@ -1,7 +1,7 @@
 use envconfig::Envconfig;
 
 
-#[derive(Envconfig, Debug, Clone)]
+#[derive(Envconfig, Debug, Clone, Default)]
 pub struct AppConfig {
     #[envconfig(from = "APP_NAME")]
     pub app_name: String,

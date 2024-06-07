@@ -1,5 +1,6 @@
 use serde::{Deserialize, Serialize};
 use validator::Validate;
+use crate::api::grpc::auth::auth_proto::LoginRequest as grpcLoginRequest;
 
 #[derive(Debug, Deserialize, Validate)]
 pub struct LoginRequest {
@@ -8,6 +9,15 @@ pub struct LoginRequest {
 
     #[validate(length(min = 1, message = "please provide your password"))]
     pub password: String,
+}
+
+impl  From<grpcLoginRequest> for LoginRequest {
+    fn from(value: grpcLoginRequest) -> Self {
+        LoginRequest {
+            email: value.email,
+            password: value.password,
+        }
+    }
 }
 
 #[derive(Debug, Serialize)]

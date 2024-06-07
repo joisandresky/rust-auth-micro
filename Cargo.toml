@@ -26,3 +26,10 @@ rusty_paseto = "0.7.1"
 time = "0.3.36"
 axum-extra = { version = "0.9.3", features = ["cookie"]}
 tower = "0.4.13"
+tonic = "0.11.0"
+prost = "0.12.6"
+prost-types = "0.12.6"
+tonic-reflection = "0.11.0"
+
+[build-dependencies]
+tonic-build = "0.11.0"

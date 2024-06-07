@@ -1,0 +1,78 @@
+syntax = "proto3";
+
+package auth;
+
+import "google/protobuf/timestamp.proto";
+
+service AuthService {
+    rpc Login (LoginRequest) returns (LoginResponse) {};
+    rpc Register (RegisterRequest) returns (RegisterResponse) {};
+    rpc Logout (LogoutRequest) returns (LogoutResponse) {};
+    rpc Me (MeRequest) returns (MeResponse) {};
+}
+
+// Message for User
+message User {
+    string id = 1;
+    string email = 2;
+    // password field is skipped in proto as it should not be serialized
+    google.protobuf.Timestamp email_verified_at = 4;
+    google.protobuf.Timestamp last_login = 5;
+    bool is_active = 6;
+    google.protobuf.Timestamp created_at = 7;
+    google.protobuf.Timestamp updated_at = 8;
+    google.protobuf.Timestamp deleted_at = 9;
+}
+
+// Message for Role
+message Role {
+    string id = 1;
+    string name = 2;
+    string description = 3;
+    google.protobuf.Timestamp created_at = 4;
+    google.protobuf.Timestamp updated_at = 5;
+    google.protobuf.Timestamp deleted_at = 6;
+}
+
+// Message for UserWithRoles
+message UserWithRoles {
+    User user = 1;
+    repeated Role roles = 2;
+}
+
+message LoginRequest {
+    string email = 1;
+    string password = 2;
+}
+
+message LoginResponse {
+    bool success = 1;
+    string access_token = 2;
+}
+
+message RegisterRequest {
+    string email = 1;
+    string password = 2;
+}
+
+message RegisterResponse {
+    bool success = 1;
+    string user_id= 2;
+}
+
+message LogoutRequest {
+    string access_token = 1;
+}
+
+message LogoutResponse {
+    bool success = 1;
+}
+
+message MeRequest {
+    string access_token = 1;
+}
+
+message MeResponse {
+    bool success = 1;
+    UserWithRoles user = 2;
+}
