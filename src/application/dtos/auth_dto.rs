@@ -12,12 +12,14 @@ pub struct LoginRequest {
 
 #[derive(Debug, Serialize)]
 pub struct LoginResponse {
+    pub success: bool,
     pub access_token: String,
 }
 
 impl From<String> for LoginResponse {
     fn from(value: String) -> Self {
         LoginResponse {
+            success: true,
             access_token: value,
         }
     }

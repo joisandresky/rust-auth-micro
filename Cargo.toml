@@ -24,3 +24,5 @@ validator = { version = "0.18.1", features = ["derive"] }
 redis = { version = "0.25.3", features = ["tokio-comp"] }
 rusty_paseto = "0.7.1"
 time = "0.3.36"
+axum-extra = { version = "0.9.3", features = ["cookie"]}
+tower = "0.4.13"

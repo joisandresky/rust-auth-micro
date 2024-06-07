@@ -51,7 +51,7 @@ pub async fn start_service() {
     let app_ctx = Arc::new(AppCtx::new(app_cfg.clone(), db_pool, redis_multiplexed_conn));
 
     // setup router
-    let app = create_router().layer(cors).with_state(app_ctx);
+    let app = create_router(app_ctx.clone()).layer(cors).with_state(app_ctx);
 
     // Run Server
     let addr = format!("0.0.0.0:{}", app_cfg.app_port);

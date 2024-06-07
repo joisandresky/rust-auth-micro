@@ -7,6 +7,8 @@ use sqlx::Error as SqlxError;
 use axum::{http::StatusCode, response::IntoResponse, Json};
 use validator::ValidationErrors;
 
+use super::tokenizer_error::TokenizerError;
+
 
 #[derive(Debug, Serialize)]
 pub struct UsecaseError {
@@ -85,6 +87,14 @@ impl From<BcryptError> for UsecaseError {
 impl From<ValidationErrors> for UsecaseError {
     fn from(value: ValidationErrors) -> Self {
         UsecaseError::new(value.to_string(), 400, None)
+    }
+}
+
+impl From<TokenizerError> for UsecaseError {
+    fn from(value: TokenizerError) -> Self {
+        match value {
+            _ => UsecaseError::new(value.to_string(), 400, None),
+        }
     }
 }
 

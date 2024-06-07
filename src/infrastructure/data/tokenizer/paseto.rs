@@ -14,7 +14,7 @@ impl PasetoMaker {
         Self { cfg }
     }
 
-    pub fn create_token(&self, user_id: &String) -> Result<String, TokenizerError> {
+    pub fn create_token(&self, user_id: &String, role: &String) -> Result<String, TokenizerError> {
         let secret = self.cfg.secret_key.as_bytes();
         let key = PasetoSymmetricKey::<V4, Local>::from(Key::from(secret));
         let user_id_str: &str = user_id.as_str();
@@ -23,6 +23,7 @@ impl PasetoMaker {
         let token = PasetoBuilder::<V4, Local>::default()
             .set_claim(ExpirationClaim::try_from(in_1_week)?)
             .set_claim(SubjectClaim::from(user_id_str))
+            .set_claim(AudienceClaim::from(role.as_str()))
             .build(&key)?;
 
         Ok(token)

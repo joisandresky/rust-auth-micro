@@ -5,10 +5,10 @@ use crate::infrastructure::data::context::app_ctx::AppCtx;
 
 use super::{auth_handler::auth_routes, role_handler::role_routes};
 
-pub fn create_router() -> Router<Arc<AppCtx>> {
+pub fn create_router(ctx: Arc<AppCtx>) -> Router<Arc<AppCtx>> {
     Router::new()
         .merge(role_routes())
-        .merge(auth_routes())
+        .merge(auth_routes(ctx.clone()))
         .route("/health", get(health_check))
         .route("/", get(root))
 }

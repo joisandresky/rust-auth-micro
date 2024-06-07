@@ -7,4 +7,6 @@ An Example of Rust Microservices for Authentication using ~~JWT~~/PASETO (haven'
 - [x] Add Some Validation
 - [x] ~~JWT~~/PASETO Authentication
 - [x] Redis for Token Store
-- [ ] Logout & clear redis key
+- [x] Auth Middleware
+- [x] Get User Info
+- [x] Logout & clear redis key

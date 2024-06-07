@@ -54,7 +54,8 @@ impl AuthUsecase {
             return Ok(LoginResponse::from(token))
         }
 
-        let access_token = self.paseto_maker.create_token(&data.user.id)
+        let role_name = data.roles.first().map(|r| r.name.clone()).unwrap_or_else(|| "USER".to_string());
+        let access_token = self.paseto_maker.create_token(&data.user.id, &role_name)
             .map_err(|err| {
                 UsecaseError::new(format!("Internal server error: {}", err), 500, None)
             })?;
@@ -100,5 +101,18 @@ impl AuthUsecase {
         tx.commit().await?;
 
         Ok(user)
+    }
+
+    pub async fn logout(&self, user_id: &String) -> Result<bool, UsecaseError> {
+        tracing::info!("logout user with id: {}", user_id);
+        
+        self
+            .redis_repo
+            .lock()
+            .await
+            .remove_auth_data(user_id)
+            .await?;
+
+        Ok(true)
     }
 }
