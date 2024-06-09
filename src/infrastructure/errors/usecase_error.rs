@@ -1,10 +1,10 @@
 use core::fmt;
-use bcrypt::BcryptError;
 use redis::RedisError;
 use serde::Serialize;
 use serde_json::json;
 use sqlx::Error as SqlxError;
 use axum::{http::StatusCode, response::IntoResponse, Json};
+use tokio::task::JoinError;
 use validator::ValidationErrors;
 
 use super::tokenizer_error::TokenizerError;
@@ -78,8 +78,8 @@ impl IntoResponse for UsecaseError {
     }
 }
 
-impl From<BcryptError> for UsecaseError {
-    fn from(value: BcryptError) -> Self {
+impl From<argon2::password_hash::Error> for UsecaseError {
+    fn from(value: argon2::password_hash::Error) -> Self {
         UsecaseError::new(value.to_string(), 500, None)
     }
 }
@@ -94,6 +94,17 @@ impl From<TokenizerError> for UsecaseError {
     fn from(value: TokenizerError) -> Self {
         match value {
             _ => UsecaseError::new(value.to_string(), 400, None),
+        }
+    }
+}
+
+// Implementing From<JoinError> for UsecaseError
+impl From<JoinError> for UsecaseError {
+    fn from(err: JoinError) -> Self {
+        UsecaseError {
+            message: "A blocking task failed to complete".to_string(),
+            error: Some(err.to_string()),
+            code: 500, // Internal Server Error
         }
     }
 }

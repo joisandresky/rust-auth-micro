@@ -29,17 +29,20 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let redis_multiplexed_conn = redis_client.get_multiplexed_tokio_connection().await?;
     info!("Successfully connected to redis");
 
-    // Spawn the HTTP/REST API server
+    // Spawn the gRPC server
     let cfg_cloned = app_cfg.clone();
     let db_pool_cloned = db_pool.clone();
     let redis_multiplexed_conn_cloned = redis_multiplexed_conn.clone();
     tokio::spawn(async {
-        if let Err(e) = rust_auth_micro::start_grpc(cfg_cloned, db_pool_cloned, redis_multiplexed_conn_cloned).await {
+        if let Err(e) =
+            rust_auth_micro::start_grpc(cfg_cloned, db_pool_cloned, redis_multiplexed_conn_cloned)
+                .await
+        {
             eprintln!("gRPC server error: {:?}", e);
         }
     });
-    
-    // Start the gRPC server
+
+    // Start the HTTP/REST API Server
     rust_auth_micro::start_service(app_cfg, db_pool, redis_multiplexed_conn).await?;
 
     Ok(())

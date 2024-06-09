@@ -11,3 +11,5 @@ An Example of Rust Microservices for Authentication using ~~JWT~~/PASETO (haven'
 - [x] Get User Info
 - [x] Logout & clear redis key
 - [ ] gRPC API
+- [x] Change bcrypt to Argon2
+- [x] Axum with Gracefully Shutdown
