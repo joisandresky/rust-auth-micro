@@ -1,7 +1,8 @@
 # Rust Auth Microservices Example
-An Example of Rust Microservices for Authentication using ~~JWT~~/PASETO (haven't decide yet which one).
+An Example of Rust Microservices for Authentication using Axum, Tonic (for gRPC), ~~JWT~~/PASETO (haven't decide yet which one).
 
 # TODO
+- [x] Axum for HTTP/REST API
 - [x] Role CRUD
 - [x] User Registration & Attaching Role to User
 - [x] Add Some Validation
