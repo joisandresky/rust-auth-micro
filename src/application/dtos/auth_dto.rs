@@ -24,14 +24,12 @@ impl From<grpcLoginRequest> for LoginRequest {
 
 #[derive(Debug, Serialize)]
 pub struct LoginResponse {
-    pub success: bool,
     pub access_token: String,
 }
 
 impl From<String> for LoginResponse {
     fn from(value: String) -> Self {
         LoginResponse {
-            success: true,
             access_token: value,
         }
     }
@@ -40,7 +38,7 @@ impl From<String> for LoginResponse {
 impl From<LoginResponse> for grpcLoginResponse {
     fn from(value: LoginResponse) -> Self {
         grpcLoginResponse {
-            success: value.success,
+            success: true,
             access_token: value.access_token,
         }
     }
