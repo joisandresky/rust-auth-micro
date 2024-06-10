@@ -1,8 +1,10 @@
 use std::sync::Arc;
 
+use axum::{http::StatusCode, Json};
+use serde_json::{json, Value};
 use sqlx::PgPool;
 use tokio::sync::Mutex;
-use tracing::info;
+use tracing::{error, info, warn};
 use validator::Validate;
 
 use crate::{
@@ -10,7 +12,10 @@ use crate::{
         auth_dto::{LoginRequest, LoginResponse},
         user_dto::CreateUserReq,
     },
-    domain::models::{user::User, user_role::UserRole},
+    domain::models::{
+        user::User,
+        user_role::{UserRole, UserWithRoles},
+    },
     infrastructure::{
         data::{
             repositories::{
@@ -158,5 +163,75 @@ impl AuthUsecase {
             .await?;
 
         Ok(true)
+    }
+
+    // used for Middleware
+    pub async fn get_user_in_context(
+        &self,
+        token: String,
+    ) -> Result<UserWithRoles, (StatusCode, Json<Value>)> {
+        let claim = self.paseto_maker.verify_token(token).map_err(|err| {
+            error!("error verifying token: {}", err);
+            (
+                StatusCode::UNAUTHORIZED,
+                Json(
+                    json!({"message": "Unauthorized", "error": err.to_string(), "success": false}),
+                ),
+            )
+        })?;
+
+        let mut user_id = claim["sub"].to_string();
+        let user_role = claim["aud"].to_string();
+        info!("user id {} with Role {}", &user_id, &user_role);
+
+        // remove double quotes from user id
+        if user_id.starts_with("\"") {
+            user_id = user_id[1..user_id.len() - 1].to_owned();
+        }
+
+        if self
+            .redis_repo
+            .lock()
+            .await
+            .get_auth_token(&user_id)
+            .await
+            .is_none()
+        {
+            error!("token user with id {} is not exist in redis", &user_id);
+            return Err((
+                StatusCode::UNAUTHORIZED,
+                Json(json!({"message": "Unauthorized", "success": false})),
+            ));
+        }
+
+        let existing_user = self.redis_repo.lock().await.get_user_data(&user_id).await;
+
+        if let Some(u) = existing_user {
+            info!(
+                "user with id {} is still exist in redis, use existing one",
+                &u.user.id
+            );
+
+            return Ok(u);
+        }
+        warn!(
+            "user with id {} is not exist in redis, get user from db",
+            &user_id
+        );
+
+        let user = self
+            .user_repo
+            .get_user_by_id_with_roles(user_id.clone())
+            .await
+            .map_err(|err| {
+                (
+                    StatusCode::INTERNAL_SERVER_ERROR,
+                    Json(json!({"message": "Internal Server Error", "error": err.to_string(), "success": false})),
+                )
+            })?;
+
+        let _ = self.redis_repo.lock().await.set_user_data(user_id, &user);
+
+        Ok(user)
     }
 }

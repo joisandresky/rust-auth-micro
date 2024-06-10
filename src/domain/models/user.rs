@@ -6,21 +6,18 @@ use uuid::Uuid;
 pub struct User {
     pub id: String,
     pub email: String,
-    #[serde(skip_serializing)]
+    #[serde(skip_deserializing, skip_serializing)]
     pub password: String,
     pub email_verified_at: Option<NaiveDateTime>,
     pub last_login: Option<NaiveDateTime>,
     pub is_active: bool,
     pub created_at: NaiveDateTime,
     pub updated_at: NaiveDateTime,
-    pub deleted_at: Option<NaiveDateTime>
+    pub deleted_at: Option<NaiveDateTime>,
 }
 
 impl User {
-    pub fn new(
-        email: String,
-        password: String,
-    ) -> Self {
+    pub fn new(email: String, password: String) -> Self {
         let id = Uuid::new_v4().to_string();
         let now = Local::now().naive_local();
 

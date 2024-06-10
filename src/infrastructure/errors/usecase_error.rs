@@ -1,14 +1,13 @@
+use axum::{http::StatusCode, response::IntoResponse, Json};
 use core::fmt;
 use redis::RedisError;
 use serde::Serialize;
 use serde_json::json;
 use sqlx::Error as SqlxError;
-use axum::{http::StatusCode, response::IntoResponse, Json};
 use tokio::task::JoinError;
 use validator::ValidationErrors;
 
 use super::tokenizer_error::TokenizerError;
-
 
 #[derive(Debug, Serialize)]
 pub struct UsecaseError {
@@ -28,27 +27,21 @@ impl std::error::Error for UsecaseError {}
 impl From<SqlxError> for UsecaseError {
     fn from(err: SqlxError) -> Self {
         match err {
-            SqlxError::RowNotFound => {
-                UsecaseError {
-                    message: "Resource not found".to_string(),
-                    error: Some(err.to_string()),
-                    code: StatusCode::NOT_FOUND.as_u16(),
-                }
-            }
-            SqlxError::Database(err) => {
-                UsecaseError {
-                    message: err.to_string(),
-                    error: None,
-                    code: StatusCode::INTERNAL_SERVER_ERROR.as_u16(),
-                }
-            }
-            _ => {
-                UsecaseError {
-                    message: err.to_string(),
-                    error: None,
-                    code: StatusCode::INTERNAL_SERVER_ERROR.as_u16(),
-                }
-            }
+            SqlxError::RowNotFound => UsecaseError {
+                message: "Resource not found".to_string(),
+                error: Some(err.to_string()),
+                code: StatusCode::NOT_FOUND.as_u16(),
+            },
+            SqlxError::Database(err) => UsecaseError {
+                message: err.to_string(),
+                error: None,
+                code: StatusCode::INTERNAL_SERVER_ERROR.as_u16(),
+            },
+            _ => UsecaseError {
+                message: err.to_string(),
+                error: None,
+                code: StatusCode::INTERNAL_SERVER_ERROR.as_u16(),
+            },
         }
     }
 }
@@ -65,8 +58,8 @@ impl From<RedisError> for UsecaseError {
 
 impl IntoResponse for UsecaseError {
     fn into_response(self) -> axum::response::Response {
-        let status_code = StatusCode::from_u16(self.code)
-            .unwrap_or(StatusCode::INTERNAL_SERVER_ERROR);
+        let status_code =
+            StatusCode::from_u16(self.code).unwrap_or(StatusCode::INTERNAL_SERVER_ERROR);
 
         let body = json!({
             "message": self.message,
@@ -111,6 +104,10 @@ impl From<JoinError> for UsecaseError {
 
 impl UsecaseError {
     pub fn new(message: String, code: u16, err: Option<String>) -> Self {
-        Self { message, code, error: err }
+        Self {
+            message,
+            code,
+            error: err,
+        }
     }
 }
