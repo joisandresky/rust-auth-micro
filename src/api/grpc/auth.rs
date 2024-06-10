@@ -1,6 +1,9 @@
 use std::sync::Arc;
 
-use crate::application::dtos::auth_dto::LoginRequest as appLoginRequest;
+use crate::{
+    application::dtos::auth_dto::LoginRequest as appLoginRequest,
+    domain::models::user_role::UserWithRoles,
+};
 use auth_proto::{
     auth_service_server::AuthService, LoginRequest, LoginResponse, LogoutRequest, LogoutResponse,
     MeRequest, MeResponse, RegisterRequest, RegisterResponse,
@@ -53,10 +56,33 @@ impl AuthService for GrpcAuthService {
         &self,
         request: Request<LogoutRequest>,
     ) -> Result<Response<LogoutResponse>, Status> {
-        todo!()
+        // get user data from extensions
+        let user_data = request.extensions().get::<UserWithRoles>();
+
+        if let Some(user_data) = user_data {
+            let _ = self.ctx.auth_usecase.logout(&user_data.user.id).await;
+
+            Ok(Response::new(LogoutResponse { success: true }))
+        } else {
+            Err(Status::unauthenticated(
+                "There is no user data in the request",
+            ))
+        }
     }
 
     async fn me(&self, request: Request<MeRequest>) -> Result<Response<MeResponse>, Status> {
-        todo!()
+        // get user data from extensions
+        let user_data = request.extensions().get::<UserWithRoles>();
+
+        if let Some(user_data) = user_data {
+            Ok(Response::new(MeResponse {
+                data: Some(user_data.clone().into()),
+                success: true,
+            }))
+        } else {
+            Err(Status::unauthenticated(
+                "There is no user data in the request",
+            ))
+        }
     }
 }

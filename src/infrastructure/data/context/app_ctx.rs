@@ -3,11 +3,23 @@ use std::sync::Arc;
 use sqlx::PgPool;
 use tokio::sync::Mutex;
 
-use crate::{application::usecases::{auth_usecase::AuthUsecase, role_usecase::RoleUsecase, user_usecase::UserUsecase}, infrastructure::data::{repositories::{redis_repository::RedisRepository, role_repository::RoleRepository, user_repository::UserRepository, user_role_repository::UserRoleRepository}, tokenizer::paseto::PasetoMaker}};
+use crate::{
+    application::usecases::{
+        auth_usecase::AuthUsecase, role_usecase::RoleUsecase, user_usecase::UserUsecase,
+    },
+    infrastructure::data::{
+        repositories::{
+            redis_repository::RedisRepository, role_repository::RoleRepository,
+            user_repository::UserRepository, user_role_repository::UserRoleRepository,
+        },
+        tokenizer::paseto::PasetoMaker,
+    },
+};
 
 use super::config::AppConfig;
 
 #[allow(unused)]
+#[derive(Clone)]
 pub struct AppCtx {
     pub cfg: AppConfig,
     pub db_pool: Arc<PgPool>,
@@ -35,9 +47,15 @@ impl AppCtx {
 
         // usecases
         let role_usecase = Arc::new(RoleUsecase::new(role_repo.clone()));
-        let auth_usecase = Arc::new(AuthUsecase::new(user_repo.clone(), role_repo.clone(), user_role_repo.clone(), redis_repo.clone(), paseto_maker.clone()));
+        let auth_usecase = Arc::new(AuthUsecase::new(
+            user_repo.clone(),
+            role_repo.clone(),
+            user_role_repo.clone(),
+            redis_repo.clone(),
+            paseto_maker.clone(),
+        ));
         let user_usecase = Arc::new(UserUsecase::new(user_repo.clone()));
-        
+
         Self {
             cfg,
             role_usecase,

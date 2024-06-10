@@ -9,7 +9,10 @@ use crate::{
     api::rest::router::create_router,
     infrastructure::data::context::{app_ctx::AppCtx, config::AppConfig},
 };
-use api::grpc::auth::{auth_proto, GrpcAuthService};
+use api::{
+    grpc::auth::{auth_proto, GrpcAuthService},
+    interceptors::auth::{AuthInterceptor, AuthServiceInterceptorImpl},
+};
 use axum::http::{
     header::{ACCEPT, AUTHORIZATION, CONTENT_TYPE},
     HeaderValue, Method,
@@ -17,6 +20,7 @@ use axum::http::{
 use sqlx::PgPool;
 use tokio::signal;
 use tonic::transport::Server;
+use tonic_middleware::InterceptorFor;
 use tower_http::cors::CorsLayer;
 use tracing::debug;
 
@@ -68,7 +72,12 @@ pub async fn start_grpc(
     ));
 
     let addr = "[::1]:50051".parse()?;
-    let auth_service = GrpcAuthService::new(app_ctx);
+    let auth_service = GrpcAuthService::new(app_ctx.clone());
+    let auth_interceptor = AuthInterceptor {
+        ctx: Arc::new(AuthServiceInterceptorImpl {
+            ctx: app_ctx.clone(),
+        }),
+    };
 
     let service = tonic_reflection::server::Builder::configure()
         .register_encoded_file_descriptor_set(auth_proto::FILE_DESCRIPTOR_SET)
@@ -78,8 +87,9 @@ pub async fn start_grpc(
 
     Server::builder()
         .add_service(service)
-        .add_service(auth_proto::auth_service_server::AuthServiceServer::new(
-            auth_service,
+        .add_service(InterceptorFor::new(
+            auth_proto::auth_service_server::AuthServiceServer::new(auth_service),
+            auth_interceptor,
         ))
         .serve_with_shutdown(addr, shutdown_signal("gRPC Service"))
         .await?;

@@ -11,7 +11,7 @@ An Example of Rust Microservices for Authentication using Axum, Tonic (for gRPC)
 - [x] Auth Middleware
 - [x] Get User Info
 - [x] Logout & clear redis key
-- [ ] gRPC API
-- [ ] async gRPC Interceptor
+- [x] gRPC API
+- [x] async gRPC Interceptor
 - [x] Change bcrypt to Argon2
 - [x] Axum with Gracefully Shutdown

@@ -60,19 +60,15 @@ message RegisterResponse {
     string user_id= 2;
 }
 
-message LogoutRequest {
-    string access_token = 1;
-}
+message LogoutRequest {}
 
 message LogoutResponse {
     bool success = 1;
 }
 
-message MeRequest {
-    string access_token = 1;
-}
+message MeRequest {}
 
 message MeResponse {
     bool success = 1;
-    UserWithRoles user = 2;
+    UserWithRoles data = 2;
 }
