@@ -1,7 +1,7 @@
 use crate::{
     api::grpc::auth::auth_proto::{
-        LoginRequest as grpcLoginRequest, LoginResponse as grpcLoginResponse, Role as grpcRole,
-        User as grpcUser, UserWithRoles as grpcUserWithRoles,
+        LoginRequest as grpcLoginRequest, LoginResponse as grpcLoginResponse, RegisterResponse,
+        Role as grpcRole, User as grpcUser, UserWithRoles as grpcUserWithRoles,
     },
     domain::models::{role::Role, user::User, user_role::UserWithRoles},
 };
@@ -45,6 +45,15 @@ impl From<LoginResponse> for grpcLoginResponse {
         grpcLoginResponse {
             success: true,
             access_token: value.access_token,
+        }
+    }
+}
+
+impl From<User> for RegisterResponse {
+    fn from(value: User) -> Self {
+        RegisterResponse {
+            success: true,
+            user_id: value.id,
         }
     }
 }

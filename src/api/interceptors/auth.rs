@@ -45,7 +45,7 @@ pub struct AuthInterceptor<A: AuthServiceInterceptor> {
 impl<A: AuthServiceInterceptor> RequestInterceptor for AuthInterceptor<A> {
     async fn intercept(&self, mut req: Request<Body>) -> Result<Request<Body>, Status> {
         info!("[gRPC] Start Auth Interceptor");
-        let whitelisted_endpoints = vec!["/auth.AuthService/Login"];
+        let whitelisted_endpoints = vec!["/auth.AuthService/Login", "/auth.AuthService/Register"];
         let req_path = &req.uri().path();
 
         if whitelisted_endpoints.iter().any(|e| req_path.contains(e)) {

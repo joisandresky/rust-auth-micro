@@ -1,7 +1,7 @@
 use std::sync::Arc;
 
 use crate::{
-    application::dtos::auth_dto::LoginRequest as appLoginRequest,
+    application::dtos::{auth_dto::LoginRequest as appLoginRequest, user_dto::CreateUserReq},
     domain::models::user_role::UserWithRoles,
 };
 use auth_proto::{
@@ -49,7 +49,17 @@ impl AuthService for GrpcAuthService {
         &self,
         request: Request<RegisterRequest>,
     ) -> Result<Response<RegisterResponse>, Status> {
-        todo!()
+        let req = request.into_inner();
+
+        let register_req: CreateUserReq = req.into();
+
+        let resp = self
+            .ctx
+            .auth_usecase
+            .register(&self.ctx.db_pool, register_req)
+            .await?;
+
+        Ok(Response::new(resp.into()))
     }
 
     async fn logout(
