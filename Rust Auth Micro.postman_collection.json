@@ -283,30 +283,6 @@
 				}
 			},
 			"response": []
-		},
-		{
-			"name": "COGNOTIV-SSG Recalculate Cost API",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"url": {
-					"raw": "http://main.pandaisuite.test/api/v1/cost/recalculate/3089",
-					"protocol": "http",
-					"host": [
-						"main",
-						"pandaisuite",
-						"test"
-					],
-					"path": [
-						"api",
-						"v1",
-						"cost",
-						"recalculate",
-						"3089"
-					]
-				}
-			},
-			"response": []
 		}
 	]
 }
