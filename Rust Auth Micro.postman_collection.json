@@ -26,7 +26,57 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "200 Example",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/v1/roles",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"roles"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "content-length",
+									"value": "247"
+								},
+								{
+									"key": "vary",
+									"value": "origin, access-control-request-method, access-control-request-headers"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "http://localhost:3000"
+								},
+								{
+									"key": "access-control-allow-credentials",
+									"value": "true"
+								},
+								{
+									"key": "date",
+									"value": "Tue, 11 Jun 2024 02:26:00 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"code\": 200,\n    \"message\": null,\n    \"data\": [\n        {\n            \"id\": \"6ea7a1cd-4065-4c6b-8391-b8d6acef5b35\",\n            \"name\": \"USER\",\n            \"description\": \"Regular User role\",\n            \"created_at\": \"2024-05-28T17:18:26.272203\",\n            \"updated_at\": \"2024-05-28T17:18:26.272203\",\n            \"deleted_at\": null\n        }\n    ]\n}"
+						}
+					]
 				},
 				{
 					"name": "Get Role By Id",
@@ -34,7 +84,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/roles/9cedb4bb-0e27-4af5-aee8-10b0240e1c71",
+							"raw": "{{url}}/api/v1/roles/6ea7a1cd-4065-4c6b-8391-b8d6acef5b35",
 							"host": [
 								"{{url}}"
 							],
@@ -42,11 +92,112 @@
 								"api",
 								"v1",
 								"roles",
-								"9cedb4bb-0e27-4af5-aee8-10b0240e1c71"
+								"6ea7a1cd-4065-4c6b-8391-b8d6acef5b35"
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "404 Example",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/v1/roles/9cedb4bb-0e27-4af5-aee8-10b0240e1c71",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"roles",
+										"9cedb4bb-0e27-4af5-aee8-10b0240e1c71"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "content-length",
+									"value": "127"
+								},
+								{
+									"key": "vary",
+									"value": "origin, access-control-request-method, access-control-request-headers"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "http://localhost:3000"
+								},
+								{
+									"key": "access-control-allow-credentials",
+									"value": "true"
+								},
+								{
+									"key": "date",
+									"value": "Tue, 11 Jun 2024 02:26:21 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": \"no rows returned by a query that expected to return at least one row\",\n    \"message\": \"Resource not found\",\n    \"success\": false\n}"
+						},
+						{
+							"name": "200 Example",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/v1/roles/6ea7a1cd-4065-4c6b-8391-b8d6acef5b35",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"roles",
+										"6ea7a1cd-4065-4c6b-8391-b8d6acef5b35"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "content-length",
+									"value": "245"
+								},
+								{
+									"key": "vary",
+									"value": "origin, access-control-request-method, access-control-request-headers"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "http://localhost:3000"
+								},
+								{
+									"key": "access-control-allow-credentials",
+									"value": "true"
+								},
+								{
+									"key": "date",
+									"value": "Tue, 11 Jun 2024 02:26:39 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"code\": 200,\n    \"message\": null,\n    \"data\": {\n        \"id\": \"6ea7a1cd-4065-4c6b-8391-b8d6acef5b35\",\n        \"name\": \"USER\",\n        \"description\": \"Regular User role\",\n        \"created_at\": \"2024-05-28T17:18:26.272203\",\n        \"updated_at\": \"2024-05-28T17:18:26.272203\",\n        \"deleted_at\": null\n    }\n}"
+						}
+					]
 				},
 				{
 					"name": "Create Role",
@@ -55,7 +206,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"USER\",\n    \"description\": \"Regular User role\"\n}",
+							"raw": "{\n    \"name\": \"New Role\",\n    \"description\": \"Some new Role\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -74,7 +225,66 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "201 Example",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"New Role\",\n    \"description\": \"Some new Role\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/v1/roles",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"roles"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "content-length",
+									"value": "117"
+								},
+								{
+									"key": "vary",
+									"value": "origin, access-control-request-method, access-control-request-headers"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "http://localhost:3000"
+								},
+								{
+									"key": "access-control-allow-credentials",
+									"value": "true"
+								},
+								{
+									"key": "date",
+									"value": "Tue, 11 Jun 2024 02:26:57 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"code\": 201,\n    \"message\": \"Successfully created a new role\",\n    \"data\": \"d4adde29-dda4-4f48-9568-0bf11fc98da2\"\n}"
+						}
+					]
 				},
 				{
 					"name": "Update Role",
@@ -83,7 +293,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Something Important\",\n    \"description\": \"Some Important Admineeee\"\n}",
+							"raw": "{\n    \"name\": \"Some updated roled\",\n    \"description\": \"Some Updated new Role\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -91,7 +301,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/api/v1/roles/9cedb4bb-0e27-4af5-aee8-10b0240e1c71",
+							"raw": "{{url}}/api/v1/roles/d4adde29-dda4-4f48-9568-0bf11fc98da2",
 							"host": [
 								"{{url}}"
 							],
@@ -99,11 +309,71 @@
 								"api",
 								"v1",
 								"roles",
-								"9cedb4bb-0e27-4af5-aee8-10b0240e1c71"
+								"d4adde29-dda4-4f48-9568-0bf11fc98da2"
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "200 Example",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Some updated roled\",\n    \"description\": \"Some Updated new Role\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/v1/roles/d4adde29-dda4-4f48-9568-0bf11fc98da2",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"roles",
+										"d4adde29-dda4-4f48-9568-0bf11fc98da2"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "content-length",
+									"value": "148"
+								},
+								{
+									"key": "vary",
+									"value": "origin, access-control-request-method, access-control-request-headers"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "http://localhost:3000"
+								},
+								{
+									"key": "access-control-allow-credentials",
+									"value": "true"
+								},
+								{
+									"key": "date",
+									"value": "Tue, 11 Jun 2024 02:27:36 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"code\": 200,\n    \"message\": \"Successfully updated role d4adde29-dda4-4f48-9568-0bf11fc98da2\",\n    \"data\": \"d4adde29-dda4-4f48-9568-0bf11fc98da2\"\n}"
+						}
+					]
 				},
 				{
 					"name": "Delete Role By ID",
@@ -111,7 +381,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/roles/e8761af9-7e88-48af-a596-d2713378d14f",
+							"raw": "{{url}}/api/v1/roles/d4adde29-dda4-4f48-9568-0bf11fc98da2",
 							"host": [
 								"{{url}}"
 							],
@@ -119,11 +389,112 @@
 								"api",
 								"v1",
 								"roles",
-								"e8761af9-7e88-48af-a596-d2713378d14f"
+								"d4adde29-dda4-4f48-9568-0bf11fc98da2"
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "404 Example",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/v1/roles/e8761af9-7e88-48af-a596-d2713378d14f",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"roles",
+										"e8761af9-7e88-48af-a596-d2713378d14f"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "content-length",
+									"value": "127"
+								},
+								{
+									"key": "vary",
+									"value": "origin, access-control-request-method, access-control-request-headers"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "http://localhost:3000"
+								},
+								{
+									"key": "access-control-allow-credentials",
+									"value": "true"
+								},
+								{
+									"key": "date",
+									"value": "Tue, 11 Jun 2024 02:27:47 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": \"no rows returned by a query that expected to return at least one row\",\n    \"message\": \"Resource not found\",\n    \"success\": false\n}"
+						},
+						{
+							"name": "200 Example",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/v1/roles/d4adde29-dda4-4f48-9568-0bf11fc98da2",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"roles",
+										"d4adde29-dda4-4f48-9568-0bf11fc98da2"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "content-length",
+									"value": "54"
+								},
+								{
+									"key": "vary",
+									"value": "origin, access-control-request-method, access-control-request-headers"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "http://localhost:3000"
+								},
+								{
+									"key": "access-control-allow-credentials",
+									"value": "true"
+								},
+								{
+									"key": "date",
+									"value": "Tue, 11 Jun 2024 02:27:57 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"code\": 200,\n    \"message\": null,\n    \"data\": null\n}"
+						}
+					]
 				}
 			]
 		},
@@ -137,7 +508,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"self@jois.dev\",\n    \"password\": \"password\"\n}",
+							"raw": "{\n    \"email\": \"seomthing@gmail.com\",\n    \"password\": \"password\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -157,7 +528,126 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "200 Example",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"seomthing@gmail.com\",\n    \"password\": \"password\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/v1/auth/register",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"register"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "content-length",
+									"value": "110"
+								},
+								{
+									"key": "vary",
+									"value": "origin, access-control-request-method, access-control-request-headers"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "http://localhost:3000"
+								},
+								{
+									"key": "access-control-allow-credentials",
+									"value": "true"
+								},
+								{
+									"key": "date",
+									"value": "Tue, 11 Jun 2024 02:28:29 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"code\": 201,\n    \"message\": \"Successfully registered!\",\n    \"data\": \"0435009c-7b97-4860-9c51-6b87355c8975\"\n}"
+						},
+						{
+							"name": "422 Example",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"seomthing@gmail.com\",\n    \"password\": \"password\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/v1/auth/register",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"register"
+									]
+								}
+							},
+							"status": "Unprocessable Entity",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "content-length",
+									"value": "102"
+								},
+								{
+									"key": "vary",
+									"value": "origin, access-control-request-method, access-control-request-headers"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "http://localhost:3000"
+								},
+								{
+									"key": "access-control-allow-credentials",
+									"value": "true"
+								},
+								{
+									"key": "date",
+									"value": "Tue, 11 Jun 2024 02:28:36 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": null,\n    \"message\": \"User with given email already exist, try to use another one\",\n    \"success\": false\n}"
+						}
+					]
 				},
 				{
 					"name": "Login",
@@ -203,7 +693,182 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "401 Email Not Exist",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"something@gmail.com\",\n    \"password\": \"password\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/v1/auth",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "content-length",
+									"value": "102"
+								},
+								{
+									"key": "vary",
+									"value": "origin, access-control-request-method, access-control-request-headers"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "http://localhost:3000"
+								},
+								{
+									"key": "access-control-allow-credentials",
+									"value": "true"
+								},
+								{
+									"key": "date",
+									"value": "Tue, 11 Jun 2024 02:28:55 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": null,\n    \"message\": \"Your email isn't associated with any accounts in our system\",\n    \"success\": false\n}"
+						},
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"seomthing@gmail.com\",\n    \"password\": \"password\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/v1/auth",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "content-length",
+									"value": "386"
+								},
+								{
+									"key": "vary",
+									"value": "origin, access-control-request-method, access-control-request-headers"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "http://localhost:3000"
+								},
+								{
+									"key": "access-control-allow-credentials",
+									"value": "true"
+								},
+								{
+									"key": "date",
+									"value": "Tue, 11 Jun 2024 02:30:01 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"code\": 200,\n    \"message\": null,\n    \"data\": {\n        \"access_token\": \"v4.local.CalP2Oj3-5R9IEkwPXqhe8YoSi0jwFt_M3wjWD_U22lInPh8JfgOroBp9rlrNxwihLVyhwHR_yZ8LyLNRtmsAqoRippPSV0D_x155Q7084NqQDwIcT5MY3nBrU9vePQ6NOmqcKxQNHTuiTqoIZdTLY8ErJ-t1mGdJo2x-P0UIyTXi_fOx0l52cXudWjlA98ZI33JyGZ1q3Lr_RP2Zswonoxw8A6b0L2z-2gZPkZxLER0ZflnOkzqB_LiZOVXZx0k1ehppdZpUK0H7OazZGyfH0sL_lbO9AHXs_epsJAD8jmqaWUUZnr2\"\n    }\n}"
+						},
+						{
+							"name": "401 Invalid Password",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"seomthing@gmail.com\",\n    \"password\": \"qweq\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/v1/auth",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "content-length",
+									"value": "59"
+								},
+								{
+									"key": "vary",
+									"value": "origin, access-control-request-method, access-control-request-headers"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "http://localhost:3000"
+								},
+								{
+									"key": "access-control-allow-credentials",
+									"value": "true"
+								},
+								{
+									"key": "date",
+									"value": "Tue, 11 Jun 2024 02:30:10 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": null,\n    \"message\": \"Invalid Password\",\n    \"success\": false\n}"
+						}
+					]
 				},
 				{
 					"name": "Me",
@@ -233,7 +898,108 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/v1/auth/me",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"me"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "content-length",
+									"value": "493"
+								},
+								{
+									"key": "vary",
+									"value": "origin, access-control-request-method, access-control-request-headers"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "http://localhost:3000"
+								},
+								{
+									"key": "access-control-allow-credentials",
+									"value": "true"
+								},
+								{
+									"key": "date",
+									"value": "Tue, 11 Jun 2024 02:31:58 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"code\": 200,\n    \"message\": null,\n    \"data\": {\n        \"id\": \"0435009c-7b97-4860-9c51-6b87355c8975\",\n        \"email\": \"seomthing@gmail.com\",\n        \"email_verified_at\": null,\n        \"last_login\": null,\n        \"is_active\": true,\n        \"created_at\": \"2024-06-11T09:28:29.149384\",\n        \"updated_at\": \"2024-06-11T09:28:29.149384\",\n        \"deleted_at\": null,\n        \"roles\": [\n            {\n                \"id\": \"6ea7a1cd-4065-4c6b-8391-b8d6acef5b35\",\n                \"name\": \"USER\",\n                \"description\": \"Regular User role\",\n                \"created_at\": \"2024-05-28T17:18:26.272203\",\n                \"updated_at\": \"2024-05-28T17:18:26.272203\",\n                \"deleted_at\": null\n            }\n        ]\n    }\n}"
+						},
+						{
+							"name": "401 Unauthorized token",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/v1/auth/me",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"me"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "content-length",
+									"value": "42"
+								},
+								{
+									"key": "vary",
+									"value": "origin, access-control-request-method, access-control-request-headers"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "http://localhost:3000"
+								},
+								{
+									"key": "access-control-allow-credentials",
+									"value": "true"
+								},
+								{
+									"key": "date",
+									"value": "Tue, 11 Jun 2024 02:32:28 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Unauthorized\",\n    \"success\": false\n}"
+						}
+					]
 				},
 				{
 					"name": "Logout",
@@ -263,7 +1029,108 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/v1/auth/logout",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"logout"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "content-length",
+									"value": "54"
+								},
+								{
+									"key": "vary",
+									"value": "origin, access-control-request-method, access-control-request-headers"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "http://localhost:3000"
+								},
+								{
+									"key": "access-control-allow-credentials",
+									"value": "true"
+								},
+								{
+									"key": "date",
+									"value": "Tue, 11 Jun 2024 02:32:08 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"code\": 200,\n    \"message\": null,\n    \"data\": null\n}"
+						},
+						{
+							"name": "401 Unauthorized Token",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/v1/auth/logout",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"logout"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "content-length",
+									"value": "42"
+								},
+								{
+									"key": "vary",
+									"value": "origin, access-control-request-method, access-control-request-headers"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "http://localhost:3000"
+								},
+								{
+									"key": "access-control-allow-credentials",
+									"value": "true"
+								},
+								{
+									"key": "date",
+									"value": "Tue, 11 Jun 2024 02:32:14 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Unauthorized\",\n    \"success\": false\n}"
+						}
+					]
 				}
 			]
 		},
@@ -282,7 +1149,55 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "OK Example",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/health",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"health"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "content-type",
+							"value": "text/plain; charset=utf-8"
+						},
+						{
+							"key": "content-length",
+							"value": "2"
+						},
+						{
+							"key": "vary",
+							"value": "origin, access-control-request-method, access-control-request-headers"
+						},
+						{
+							"key": "access-control-allow-origin",
+							"value": "http://localhost:3000"
+						},
+						{
+							"key": "access-control-allow-credentials",
+							"value": "true"
+						},
+						{
+							"key": "date",
+							"value": "Tue, 11 Jun 2024 02:28:12 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "OK"
+				}
+			]
 		}
 	]
 }
