@@ -29,6 +29,9 @@ pub async fn start_service(
     db_pool: PgPool,
     redis_multiplexed_conn: redis::aio::MultiplexedConnection,
 ) -> Result<(), Box<dyn std::error::Error>> {
+    // prometheus setup
+    let (prometheus_layer, metric_handle) = axum_prometheus::PrometheusMetricLayer::pair();
+
     // setup cors
     let cors = CorsLayer::new()
         .allow_origin("http://localhost:3000".parse::<HeaderValue>()?)
@@ -44,8 +47,9 @@ pub async fn start_service(
     ));
 
     // setup router
-    let app = create_router(app_ctx.clone())
+    let app = create_router(app_ctx.clone(), metric_handle)
         .layer(cors)
+        .layer(prometheus_layer)
         .with_state(app_ctx);
 
     // Run Server
