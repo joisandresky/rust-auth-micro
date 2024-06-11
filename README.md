@@ -15,3 +15,8 @@ An Example of Rust Microservices for Authentication using Axum, Tonic (for gRPC)
 - [x] async gRPC Interceptor
 - [x] Change bcrypt to Argon2
 - [x] Axum with Gracefully Shutdown
+- [x] Dockerfile
+- [ ] Observability
+    - [ ] OpenTelemetry Integrations
+    - [ ] Jaeger Tracing
+    - [ ] Prometheus Metrics
