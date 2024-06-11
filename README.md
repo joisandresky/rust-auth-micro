@@ -19,4 +19,5 @@ An Example of Rust Microservices for Authentication using Axum, Tonic (for gRPC)
 - [ ] Observability
     - [ ] OpenTelemetry Integrations
     - [ ] Jaeger Tracing
-    - [ ] Prometheus Metrics
+    - [x] Prometheus Metrics
+    - [x] Grafana Dashboard

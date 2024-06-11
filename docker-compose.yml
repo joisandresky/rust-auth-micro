@@ -9,8 +9,8 @@ services:
       - APP_NAME="RUST AUTH MICROSERVICE"
       - APP_PORT=9400
       - APP_ENV=development
-      - DATABASE_URL=postgres://postgres:@host.docker.internal:5432/auth_app
-      - REDIS_URL=redis://host.docker.internal:6379
+      - DATABASE_URL=postgres://postgres:@host.docker.internal:5432/auth_app # you can change this with docker network if you run postgres on docker also (@postgres:5432)
+      - REDIS_URL=redis://host.docker.internal:6379 # you can change this with docker network if you run redis on docker also (redis://redis:6379)
       - SECRET_KEY=JyGhFWP7UdTGbOOjotN3rK3CPOcnzLQV
     extra_hosts:
       - "host.docker.internal:host-gateway"
