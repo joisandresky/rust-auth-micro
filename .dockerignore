@@ -1,0 +1,17 @@
+# Ignore the target directory
+target
+
+# Ignore the .git directory
+.git
+
+# Ignore node_modules if you have frontend dependencies
+node_modules
+
+# Ignore the Dockerfile itself to avoid unnecessary context size
+deployments/Dockerfile
+
+# Ignore the .dockerignore file itself
+.dockerignore
+
+# Add any other files or directories you want to ignore
+# For example, temporary files, build scripts, etc.

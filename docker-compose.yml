@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:    
+  rust-auth-micro:
+    build: .
+    ports:
+      - 9400:9400
+    environment:
+      - APP_NAME="RUST AUTH MICROSERVICE"
+      - APP_PORT=9400
+      - APP_ENV=development
+      - DATABASE_URL=postgres://postgres:@host.docker.internal:5432/auth_app
+      - REDIS_URL=redis://host.docker.internal:6379
+      - SECRET_KEY=JyGhFWP7UdTGbOOjotN3rK3CPOcnzLQV
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    command: --config.file=/etc/prometheus/prometheus.yml
+    volumes:
+      - ./scripts/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    depends_on:
+      - prometheus
